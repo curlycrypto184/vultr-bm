@@ -3,7 +3,7 @@
 #Set MOTD
 cat templates/motd > /etc/motd
 cat templates/motd > /etc/issue
-cat templates/motd > etc/issue.net
+cat templates/motd > /etc/issue.net
 
 #Update System
 apt update
@@ -11,7 +11,7 @@ apt upgrade -y
 apt dist-upgrade -y
 
 #Setting a more restructive UMASK
-cp templates/logins.defs /etc/login.defs
+cp templates/login.defs /etc/login.defs
 
 #Disabling Unused Filesystems
 
@@ -42,20 +42,20 @@ chown -R swupoh: /home/swupoh/.ssh/authorized_keys
 chmod 600 /home/swupoh/.ssh/authorized_keys
 
 #Secure SSH
-cp /templates/sshd_config /etc/ssh/sshd_config
+cp templates/sshd_config /etc/ssh/sshd_config
 service ssh restart
 
 #Secure /tmp folder
 
-dd if=/dev/zero of=/usr/tmpDISK bs=1024 count=2048000
-mkdir /tmpbackup
-cp -Rpf /tmp /tmpbackup
-mount -t tmpfs -o loop,noexec,nosuid,rw /usr/tmpDISK /tmp
-chmod 1777 /tmp
-cp -Rpf /tmpbackup/* /tmp/
-rm -rf /tmpbackup
-echo "/usr/tmpDISK  /tmp    tmpfs   loop,nosuid,nodev,noexec,rw  0 0" >> /etc/fstab
-sudo mount -o remount /tmp
+#dd if=/dev/zero of=/usr/tmpDISK bs=1024 count=2048000
+#mkdir /tmpbackup
+#cp -Rpf /tmp /tmpbackup
+#mount -t tmpfs -o loop,noexec,nosuid,rw /usr/tmpDISK /tmp
+#chmod 1777 /tmp
+#cp -Rpf /tmpbackup/* /tmp/
+#rm -rf /tmpbackup
+#echo "/usr/tmpDISK  /tmp    tmpfs   loop,nosuid,nodev,noexec,rw  0 0" >> /etc/fstab
+#sudo mount -o remount /tmp
 
 
 #Setup UFW
